@@ -10,7 +10,7 @@ import Leap, sys
 from Leap import CircleGesture, KeyTapGesture, ScreenTapGesture, SwipeGesture
 
 
-class SampleListener(Leap.Listener):
+class PalmListener(Leap.Listener):
     def on_init(self, controller):
         print "Initialized"
 
@@ -18,9 +18,9 @@ class SampleListener(Leap.Listener):
         print "Connected"
 
         # Enable gestures
-        controller.enable_gesture(Leap.Gesture.TYPE_CIRCLE);
-        controller.enable_gesture(Leap.Gesture.TYPE_KEY_TAP);
-        controller.enable_gesture(Leap.Gesture.TYPE_SCREEN_TAP);
+        #controller.enable_gesture(Leap.Gesture.TYPE_CIRCLE);
+        #controller.enable_gesture(Leap.Gesture.TYPE_KEY_TAP);
+        #controller.enable_gesture(Leap.Gesture.TYPE_SCREEN_TAP);
         controller.enable_gesture(Leap.Gesture.TYPE_SWIPE);
 
     def on_disconnect(self, controller):
@@ -33,9 +33,10 @@ class SampleListener(Leap.Listener):
         # Get the most recent frame and report some basic information
         frame = controller.frame()
 
+        '''
         print "Frame id: %d, timestamp: %d, hands: %d, fingers: %d, tools: %d, gestures: %d" % (
               frame.id, frame.timestamp, len(frame.hands), len(frame.fingers), len(frame.tools), len(frame.gestures()))
-
+        '''
         if not frame.hands.empty:
             # Get the first hand
             hand = frame.hands[0]
@@ -48,23 +49,26 @@ class SampleListener(Leap.Listener):
                 for finger in fingers:
                     avg_pos += finger.tip_position
                 avg_pos /= len(fingers)
+                '''
                 print "Hand has %d fingers, average finger tip position: %s" % (
                       len(fingers), avg_pos)
-
+                '''
             # Get the hand's sphere radius and palm position
+            '''
             print "Hand sphere radius: %f mm, palm position: %s" % (
                   hand.sphere_radius, hand.palm_position)
-
+            '''
             # Get the hand's normal vector and direction
             normal = hand.palm_normal
             direction = hand.direction
 
             # Calculate the hand's pitch, roll, and yaw angles
+            '''
             print "Hand pitch: %f degrees, roll: %f degrees, yaw: %f degrees" % (
                 direction.pitch * Leap.RAD_TO_DEG,
                 normal.roll * Leap.RAD_TO_DEG,
                 direction.yaw * Leap.RAD_TO_DEG)
-
+            '''
             # Gestures
             for gesture in frame.gestures():
                 if gesture.type == Leap.Gesture.TYPE_CIRCLE:
@@ -121,8 +125,8 @@ class SampleListener(Leap.Listener):
             return "STATE_INVALID"
 
 def main():
-    # Create a sample listener and controller
-    listener = SampleListener()
+    # Create a paml listener and controller
+    listener = PalmListener()
     controller = Leap.Controller()
 
     # Have the sample listener receive events from the controller
