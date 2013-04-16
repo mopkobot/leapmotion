@@ -46,7 +46,7 @@ def main():
 
             print 'end grasp'
             controller.remove_listener(grasp_listener)
-            time.sleep(1)
+            time.sleep(3)
             print 'restart'
         else:
             time.sleep(1)
