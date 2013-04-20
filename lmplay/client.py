@@ -67,9 +67,10 @@ def send(address, data):
 
     elif address == hands_address:
         msg.append(data.get('type'))
-        msg.append(data.get('left'))
-        msg.append(data.get('right'))
+        msg.append(data.get('state'))
+        for item in mapping(data.get('position')):
+            msg.append(item)
 
-        print data.get('type'), data.get('left'), data.get('right')
+        print data.get('type'), data.get('state'), data.get('position')
         
     client.send(msg) # now we dont need to tell the client the address anymore
